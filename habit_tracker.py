@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-Habit Tracker MCP Server for Vercel Deployment
+Habit Tracker MCP Server for Puch AI
+A comprehensive habit tracking system with analytics and insights.
 Built for #BuildWithPuch hackathon
 """
 
@@ -12,10 +13,10 @@ from typing import Dict, List, Optional, Any, Annotated
 from dataclasses import dataclass, asdict
 from collections import defaultdict
 import os
-import random
-import tempfile
 from pathlib import Path
+import random
 
+from dotenv import load_dotenv
 from fastmcp import FastMCP
 from fastmcp.server.auth.providers.bearer import BearerAuthProvider, RSAKeyPair
 from mcp import ErrorData, McpError
@@ -23,9 +24,14 @@ from mcp.server.auth.provider import AccessToken
 from mcp.types import TextContent, INVALID_PARAMS, INTERNAL_ERROR
 from pydantic import BaseModel, Field
 
-# Environment variables for Vercel
-TOKEN = os.environ.get("TOKEN", "buildwithpuch2024_demo")
-MY_NUMBER = os.environ.get("MY_NUMBER", "919876543210")
+# Load environment variables
+load_dotenv()
+
+TOKEN = os.environ.get("TOKEN")
+MY_NUMBER = os.environ.get("MY_NUMBER")
+
+assert TOKEN is not None, "Please set TOKEN in your .env file"
+assert MY_NUMBER is not None, "Please set MY_NUMBER in your .env file"
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -78,12 +84,10 @@ class HabitEntry:
     timestamp: str = ""
 
 class HabitTracker:
-    """Main habit tracking system - uses temporary storage for serverless"""
+    """Main habit tracking system"""
     
     def __init__(self):
-        # Use temporary directory for serverless deployment
-        temp_dir = tempfile.gettempdir()
-        self.data_file = Path(temp_dir) / "habit_data.json"
+        self.data_file = Path("habit_data.json")
         self.habits: Dict[str, Habit] = {}
         self.entries: List[HabitEntry] = []
         self.load_data()
@@ -581,10 +585,10 @@ async def get_shareable_progress() -> str:
     
     return result
 
-# Vercel handler - this is what Vercel will call
-app = mcp.create_app()
+# Run MCP Server
+async def main():
+    print("🚀 Starting Habit Tracker MCP server on http://0.0.0.0:8086")
+    await mcp.run_async("streamable-http", host="0.0.0.0", port=8086)
 
-# For local testing
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8086)
+    asyncio.run(main())
