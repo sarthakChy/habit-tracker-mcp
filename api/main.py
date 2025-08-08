@@ -582,7 +582,7 @@ async def get_shareable_progress() -> str:
     return result
 
 # Vercel handler - this is what Vercel will call
-app = mcp
+app = mcp.run_async("streamable-http", host="0.0.0.0", port=8086)
 
 # Run MCP Server
 async def main():
