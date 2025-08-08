@@ -584,7 +584,10 @@ async def get_shareable_progress() -> str:
 # Vercel handler - this is what Vercel will call
 app = mcp
 
-# For local testing
+# Run MCP Server
+async def main():
+    print("🚀 Starting Habit Tracker MCP server on http://0.0.0.0:8086")
+    await mcp.run_async("streamable-http", host="0.0.0.0", port=8086)
+
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8086)
+    asyncio.run(main())
