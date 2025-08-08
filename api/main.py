@@ -24,8 +24,8 @@ from mcp.types import TextContent, INVALID_PARAMS, INTERNAL_ERROR
 from pydantic import BaseModel, Field
 
 # Environment variables for Vercel
-TOKEN = os.environ.get("TOKEN", "buildwithpuch2024_demo")
-MY_NUMBER = os.environ.get("MY_NUMBER", "919876543210")
+TOKEN = os.environ.get("TOKEN")
+MY_NUMBER = os.environ.get("MY_NUMBER")
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
