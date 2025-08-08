@@ -1,3 +1,7 @@
 fastmcp
 python-dotenv
 pydantic
+
+# Testing
+pytest
+httpx

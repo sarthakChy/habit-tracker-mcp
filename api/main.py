@@ -582,7 +582,7 @@ async def get_shareable_progress() -> str:
     return result
 
 # Vercel handler - this is what Vercel will call
-app = mcp.create_app()
+app = mcp
 
 # For local testing
 if __name__ == "__main__":
