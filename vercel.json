@@ -13,7 +13,7 @@
     }
   ],
   "env": {
-    "TOKEN": "@TOKEN",
-    "MY_NUMBER": "@MY_NUMBER"
+    "TOKEN": "TOKEN",
+    "MY_NUMBER": "MY_NUMBER"
   }
 }
