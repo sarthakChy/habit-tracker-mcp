@@ -11,9 +11,5 @@
       "src": "/(.*)",
       "dest": "/api/main.py"
     }
-  ],
-  "env": {
-    "TOKEN": "TOKEN",
-    "MY_NUMBER": "MY_NUMBER"
-  }
+  ]
 }
